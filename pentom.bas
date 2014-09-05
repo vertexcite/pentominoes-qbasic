@@ -37,7 +37,7 @@ DECLARE SUB Setup1 ()
 DECLARE SUB RotateClockWise (ImageIndex AS INTEGER)
 DECLARE SUB FlipPiece (ImageIndex AS INTEGER)
 
-CONST PieceCount = 13
+CONST PieceCount = 12
 
 DIM SHARED UsedPiece(1 TO PieceCount) AS INTEGER
 DIM SHARED PieceMarker(1 TO PieceCount) AS STRING
@@ -46,8 +46,8 @@ CONST RenderOffsetX = 20
 CONST RenderOffsetY = 3
 
 
-CONST BoardWidth = 8+1
-CONST BoardHeight = 8+1
+CONST BoardWidth = 6+1
+CONST BoardHeight = 10+1
 DIM SHARED Board(0 TO BoardWidth + 1, 0 TO BoardHeight + 1) AS INTEGER
 
 TYPE BlockCoord
@@ -464,17 +464,17 @@ PieceStructure(12, 4).y = 0
 'Square (2x2), 
 'Note: Hack: duplication hack since code assumes pentomino, not tetromino.
 '            i.e. by default there is already a (0,0), but one is explicitly added here again.
-PieceStructure(13, 1).x = 0
-PieceStructure(13, 1).y = 0
+'PieceStructure(13, 1).x = 0
+'PieceStructure(13, 1).y = 0
 
-PieceStructure(13, 2).x = 0
-PieceStructure(13, 2).y = 1
+'PieceStructure(13, 2).x = 0
+'PieceStructure(13, 2).y = 1
 
-PieceStructure(13, 3).x = 1
-PieceStructure(13, 3).y = 0
+'PieceStructure(13, 3).x = 1
+'PieceStructure(13, 3).y = 0
 
-PieceStructure(13, 4).x = 1
-PieceStructure(13, 4).y = 1
+'PieceStructure(13, 4).x = 1
+'PieceStructure(13, 4).y = 1
 
 
 
@@ -490,7 +490,7 @@ PieceMarker(9) = "9"
 PieceMarker(10) = "a"
 PieceMarker(11) = "b"
 PieceMarker(12) = "c"
-PieceMarker(13) = "d"
+'PieceMarker(13) = "d"
 
 END SUB
 
@@ -608,10 +608,15 @@ SUB Setup2
 
   'Lambda
   'Clever hack: By not rotating or flipping this piece, we avoid symmetric solutions.
-  'In this case board has all 8 symmetries.  In the case where board has less symmetry, add back whichever are the required transformations of this piece.
+  'In this case board has all 4 symmetries.  In the case where board has less or more symmetry, add back ore remove whichever are the required transformations of this piece.
   ImageNumber = ImageNumber + 1
   PieceSpecifics(ImageNumber).PieceNumber = 10
   PieceSpecifics(ImageNumber).Rotate = 0
+  PieceSpecifics(ImageNumber).Flip = 0
+
+  ImageNumber = ImageNumber + 1
+  PieceSpecifics(ImageNumber).PieceNumber = 10
+  PieceSpecifics(ImageNumber).Rotate = 1
   PieceSpecifics(ImageNumber).Flip = 0
 
   'W
@@ -631,10 +636,10 @@ SUB Setup2
   NEXT
 
   'Square 2x2
-  ImageNumber = ImageNumber + 1
-  PieceSpecifics(ImageNumber).PieceNumber = 13
-  PieceSpecifics(ImageNumber).Rotate = 0
-  PieceSpecifics(ImageNumber).Flip = 0
+'  ImageNumber = ImageNumber + 1
+'  PieceSpecifics(ImageNumber).PieceNumber = 13
+'  PieceSpecifics(ImageNumber).Rotate = 0
+'  PieceSpecifics(ImageNumber).Flip = 0
 
 
 PRINT ImageNumber
